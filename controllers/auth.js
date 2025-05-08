@@ -6,7 +6,7 @@ exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // 1. Check if email and password exist
+    // Check if email and password exist
     if (!email || !password) {
       return res.status(400).json({
         status: 'error',
@@ -14,7 +14,7 @@ exports.login = async (req, res) => {
       });
     }
 
-    // 2. Check if user exists and password is correct
+    // Check if user exists and password is correct
     const user = await User.findOne({ email }).select('+password');
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({
@@ -23,12 +23,12 @@ exports.login = async (req, res) => {
       });
     }
 
-    // 3. Create token
+    // Create token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN
     });
 
-    // 4. Remove password from output
+    // Remove password from output
     user.password = undefined;
 
     res.status(200).json({

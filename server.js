@@ -10,7 +10,7 @@ const userRoutes = require('./routes/users');
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:3000', // Your frontend URL
+  origin: process.env.CLIENT_URL || 'http://localhost:3000',
   credentials: true
 }));
 

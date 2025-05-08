@@ -46,17 +46,6 @@ exports.getUser = catchAsync(async (req, res, next) => {
   });
 });
 
-// exports.createUser = catchAsync(async (req, res, next) => {
-//   const newUser = await User.create(req.body);
-
-//   res.status(201).json({
-//     status: 'success',
-//     data: {
-//       user: newUser
-//     }
-//   });
-// });
-
 exports.createUser = async (req, res) => {
   try {
     const user = await User.create(req.body);
